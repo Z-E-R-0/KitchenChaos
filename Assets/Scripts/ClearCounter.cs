@@ -5,7 +5,7 @@ using UnityEngine;
 public class ClearCounter : MonoBehaviour
 {
     // Start is called before the first frame update
-   public void Intract()
+   public void Interact()
    {
 
    Debug.Log("Intract");

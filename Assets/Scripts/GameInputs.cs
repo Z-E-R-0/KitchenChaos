@@ -22,7 +22,7 @@ playerInputActions.Player.Interact.performed += Interact_performed;
 private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
 {
 OnInteractAction?.Invoke(this,EventArgs.Empty);
-Debug.Log(obj);
+
 
 }
     public Vector2 GetMovementVectorNormalized()
