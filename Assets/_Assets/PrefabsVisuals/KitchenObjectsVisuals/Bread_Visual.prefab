@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3812876574508226176}
-  - component: {fileID: 1972887353621073366}
   m_Layer: 0
   m_Name: Bread_Visual
   m_TagString: Untagged
@@ -34,19 +33,6 @@ Transform:
   - {fileID: 1501558528557060038}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1972887353621073366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3812876574508226177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd9115c56f70db24098388150bd35f6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  kitchenObjectSO: {fileID: 11400000, guid: 3df81b0aa779dbb47925c3bc37131f36, type: 2}
 --- !u!1001 &1395028449477224493
 PrefabInstance:
   m_ObjectHideFlags: 0
