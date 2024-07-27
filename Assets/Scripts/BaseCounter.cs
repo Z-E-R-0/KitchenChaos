@@ -41,7 +41,7 @@ public class BaseCounter : MonoBehaviour, IkitchenObjectParent
 
     }
 
-    public bool hasKitchenObjects()
+    public bool HasKitchenObjects()
     {
         return kitchenObjects != null;
 

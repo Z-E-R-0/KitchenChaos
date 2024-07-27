@@ -12,9 +12,15 @@ public class ContainerCounter : BaseCounter
     // Start is called before the first frame update
     public override void Interact(Player player)
     {
-        Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab);
-        kitchenObjectTransform.GetComponent<KitchenObjects>().SetKitchenObjectParent(player);
-        OnPlayerGrabbedObject?.Invoke(this,EventArgs.Empty);
+        if(!player.HasKitchenObjects())
+        {
+            //Player is not carrying Anything
+            Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab);
+            kitchenObjectTransform.GetComponent<KitchenObjects>().SetKitchenObjectParent(player);
+            OnPlayerGrabbedObject?.Invoke(this, EventArgs.Empty);
+
+
+        }
     }
 
 }

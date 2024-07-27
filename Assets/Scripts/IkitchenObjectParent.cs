@@ -8,6 +8,6 @@ public interface IkitchenObjectParent
     public void SetkitchenObject(KitchenObjects kitchenObjects);
     public KitchenObjects GetKitchenObject();
     public void ClearKitchenObjects();
-    public bool hasKitchenObjects();
+    public bool HasKitchenObjects();
     
 }
