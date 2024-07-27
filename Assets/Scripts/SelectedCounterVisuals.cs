@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class SelectedCounterVisuals : MonoBehaviour
 {
-    [SerializeField] private ClearCounter clearCounter;
-    [SerializeField] private GameObject visualGameObject;
+    [SerializeField] private BaseCounter baseCounter;
+    [SerializeField] private GameObject[] visualGameObjectArray;
     private void Start()
     {
         Player.Instance.OnSelectedCounterChanged += Player_OnSelectedCounterChanged;
-        visualGameObject.SetActive(false);
+        Hide();
     }
 
     private void Player_OnSelectedCounterChanged(object sender,Player.OnSelectedCounterChangedEventArgs e)
     {
-        if(e.selectedCounter ==clearCounter)
+        if(e.selectedCounter ==baseCounter)
         {
             Show();
         }
@@ -30,15 +30,19 @@ public class SelectedCounterVisuals : MonoBehaviour
 
     private void Show()
     {
-
-        visualGameObject.SetActive(true);
+        foreach (GameObject visualGameObjects in visualGameObjectArray)
+        {
+            visualGameObjects.SetActive(true);
+        }
 
     }
 
     private void Hide()
     {
-        visualGameObject.SetActive(false);
-
+        foreach (GameObject visualGameObjects in visualGameObjectArray)
+        {
+            visualGameObjects.SetActive(false);
+        }
 
     }
 }

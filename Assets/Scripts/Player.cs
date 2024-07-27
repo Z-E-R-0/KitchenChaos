@@ -10,13 +10,13 @@ public class Player : MonoBehaviour,IkitchenObjectParent
     private bool isWalking;
     [SerializeField] private LayerMask CounterlayerMask;
     private Vector3 lastInteractedDirection; // Fixed spelling of 'lastInteractedDirection'
-    private ClearCounter selectedCounter;
+    private BaseCounter selectedCounter;
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     private KitchenObjects kitchenObjects;
     [SerializeField] private Transform kitchenObjectHoldPoint;
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
-        public ClearCounter selectedCounter;
+        public BaseCounter selectedCounter;
     }
 
     private void Awake()
@@ -110,11 +110,11 @@ public class Player : MonoBehaviour,IkitchenObjectParent
 
         if (Physics.Raycast(transform.position, lastInteractedDirection, out RaycastHit raycastHit, interactDistance, CounterlayerMask))
         {
-            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+            if (raycastHit.transform.TryGetComponent(out BaseCounter baseCounter))
             {
-                if (clearCounter != selectedCounter) // Changed condition to compare with selectedCounter
+                if (baseCounter != selectedCounter) // Changed condition to compare with selectedCounter
                 {
-                    SetSelectedCounter(clearCounter); // Call SetSelectedCounter only when there is a change
+                    SetSelectedCounter(baseCounter); // Call SetSelectedCounter only when there is a change
                 }
             }
             else
@@ -128,7 +128,7 @@ public class Player : MonoBehaviour,IkitchenObjectParent
         }
     }
 
-    private void SetSelectedCounter(ClearCounter newCounter)
+    private void SetSelectedCounter(BaseCounter newCounter)
     {
         if (newCounter != selectedCounter) // Added check to update only if there is a change
         {
