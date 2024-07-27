@@ -13,6 +13,11 @@ public class BaseCounter : MonoBehaviour, IkitchenObjectParent
 
         Debug.LogError("Base Counter Intracted");
 
+    }public virtual void InteractAlternate(Player player)
+    {
+
+        Debug.LogError("Base Counter IntractedAlternate");
+
     }
     public Transform GetKitchenObjectFollowTransform()
     {
