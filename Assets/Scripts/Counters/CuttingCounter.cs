@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CuttingCounter : BaseCounter , IHasProgress
+public class CuttingCounter : BaseCounter, IHasProgress
 {
     [SerializeField] private CuttingRecipeSO[] cuttingRecipeSOArray;
     private int cuttingProgress;
     public event EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
     public event EventHandler OnCut;
-    
+
     // Start is called before the first frame update
     public override void Interact(Player player)
     {
@@ -48,12 +48,29 @@ public class CuttingCounter : BaseCounter , IHasProgress
             {
 
                 //player carrying somting 
+                if (player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
+                {
+                    //Player is holding a plate
+
+                    if (plateKitchenObject.TryAddIngredient(GetKitchenObject().GetKitchenObjectSO()))
+                    {
+                        GetKitchenObject().DestroySelf();
+
+                    }
+
+                }
+
             }
             else
             {
-                //Player is not carrying anything
+                //Player is not carrying anything 
                 GetKitchenObject().SetKitchenObjectParent(player);
+
+
+
+
             }
+
 
 
 
@@ -66,7 +83,7 @@ public class CuttingCounter : BaseCounter , IHasProgress
 
             //There is a KitchenObject Lets Cut it  and it can be cut
             cuttingProgress++;
-            OnCut?.Invoke(this,EventArgs.Empty);
+            OnCut?.Invoke(this, EventArgs.Empty);
             CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(GetKitchenObject().GetKitchenObjectSO());
 
             OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
