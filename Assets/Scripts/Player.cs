@@ -12,6 +12,7 @@ public class Player : MonoBehaviour,IkitchenObjectParent
     private Vector3 lastInteractedDirection; // Fixed spelling of 'lastInteractedDirection'
     private BaseCounter selectedCounter;
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+    public event EventHandler OnPickedSometing;
     private KitchenObjects kitchenObjects;
     [SerializeField] private Transform kitchenObjectHoldPoint;
     public class OnSelectedCounterChangedEventArgs : EventArgs
@@ -154,6 +155,10 @@ public class Player : MonoBehaviour,IkitchenObjectParent
     public void SetkitchenObject(KitchenObjects kitchenObjects)
     {
         this.kitchenObjects = kitchenObjects;
+        if (kitchenObjects != null)
+        {
+            OnPickedSometing?.Invoke(this, EventArgs.Empty);
+        }
 
 
     }

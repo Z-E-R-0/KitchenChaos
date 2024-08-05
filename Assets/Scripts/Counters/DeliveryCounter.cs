@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class DeliveryCounter : BaseCounter
 {
+    public static DeliveryCounter Instance { get; private set; }
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     public override void Interact(Player player)
     {
         if(player.HasKitchenObjects())
