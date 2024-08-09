@@ -2436,7 +2436,6 @@ GameObject:
   m_Component:
   - component: {fileID: 754455118}
   - component: {fileID: 754455119}
-  - component: {fileID: 754455120}
   m_Layer: 5
   m_Name: GameOverUI
   m_TagString: Untagged
@@ -2480,18 +2479,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recipiesDeliveredText: {fileID: 1792112828}
---- !u!114 &754455120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 754455117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1025301dbed8e514e9d295500f8e97e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &770140875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4859,7 +4846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waitingToStartTimer: 1
   countdownToStartTimer: 3
-  gamePlayingTimer: 30
+  gamePlayingTimerMax: 30
 --- !u!4 &1767576273
 Transform:
   m_ObjectHideFlags: 0
@@ -5059,6 +5046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1025301dbed8e514e9d295500f8e97e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timerImage: {fileID: 100853404}
 --- !u!4 &1837150854 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8892973238224237376, guid: b33d1d3f7dd8f3247afecf6542dc9ca0,
