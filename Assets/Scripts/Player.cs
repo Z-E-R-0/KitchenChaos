@@ -1,8 +1,9 @@
 using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour,IkitchenObjectParent
+public class Player : MonoBehaviour, IkitchenObjectParent
 {
+
     public static Player Instance { get; private set; }
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInputs gameInputs;
@@ -38,12 +39,19 @@ public class Player : MonoBehaviour,IkitchenObjectParent
 
     private void GameInput_OnInteractAction(object sender, EventArgs e)
     {
-        if (selectedCounter != null)
-        {
-            selectedCounter.Interact(this); // Fixed spelling of 'Interact'
-        }
-    } private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
+        if (!GameManager.Instance.IsGamePlaying()) return;
+       
+            if (selectedCounter != null)
+            {
+                selectedCounter.Interact(this); // Fixed spelling of 'Interact'
+            }
+
+       
+
+    }
+    private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
     {
+        if (!GameManager.Instance.IsGamePlaying()) return;
         if (selectedCounter != null)
         {
             selectedCounter.InteractAlternate(this); // Fixed spelling of 'Interact'
