@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class DeliveryResultUI : MonoBehaviour
 {
+    private const string POPUP = "PopUP";
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Image iconImage;
     [SerializeField] private TextMeshProUGUI messageText;
@@ -23,10 +24,14 @@ public class DeliveryResultUI : MonoBehaviour
     {
         DeliveryManager.Instance.OnRecipeSuccess += DeliveryManager_OnRecipeSuccess;
         DeliveryManager.Instance.OnRecipeFail += DeliveryManager_OnRecipeFail;
+        gameObject.SetActive(false);
+
     }
 
     private void DeliveryManager_OnRecipeFail(object sender, System.EventArgs e)
     {
+        gameObject.SetActive(true);
+        animator.SetTrigger(POPUP);
        backgroundImage.color = failColor;
         iconImage.sprite = failSprite;
         messageText.text = "DELIVERY\nFAILED";
@@ -34,7 +39,9 @@ public class DeliveryResultUI : MonoBehaviour
 
     private void DeliveryManager_OnRecipeSuccess(object sender, System.EventArgs e)
     {
-       backgroundImage.color=successColor;
+        gameObject.SetActive(true);
+        animator.SetTrigger(POPUP);
+        backgroundImage.color=successColor;
         iconImage.sprite=successSprite;
         messageText.text = "DELIVERY\nSUCCESS";
     }

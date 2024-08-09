@@ -7309,6 +7309,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1375629239}
     m_Modifications:
+    - target: {fileID: 3707975560505443166, guid: a27825e90c1616240b2971f47136c7ff,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4271169997231636038, guid: a27825e90c1616240b2971f47136c7ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7363,6 +7368,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CastShadows
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4772987543753123179, guid: a27825e90c1616240b2971f47136c7ff,
+        type: 3}
+      propertyPath: mode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5629108721306438052, guid: a27825e90c1616240b2971f47136c7ff,
         type: 3}
@@ -12635,7 +12645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownToStartTimer: 3
-  gamePlayingTimerMax: 30
+  gamePlayingTimerMax: 120
 --- !u!4 &1767576273
 Transform:
   m_ObjectHideFlags: 0
