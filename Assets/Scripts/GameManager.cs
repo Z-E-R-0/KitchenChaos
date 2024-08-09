@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     }
     private State state;
-    [SerializeField]private float waitingToStartTimer = 1f;
+   
     [SerializeField] private float countdownToStartTimer = 3f;
      private float gamePlayingTimer;
     [SerializeField] private float gamePlayingTimerMax = 10f;
@@ -34,10 +34,20 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameInputs.Instance.OnGamePaused += GameManager_OnGamePaused;
+        GameInputs.Instance.OnGamePaused += GameInput_OnGamePaused;
+        GameInputs.Instance.OnInteractAction += GameInput_OnInteractAction;
     }
 
-    private void GameManager_OnGamePaused(object sender, EventArgs e)
+    private void GameInput_OnInteractAction(object sender, EventArgs e)
+    {
+        if (state == State.WaitingToStart)
+        {
+            state = State.CountdownToStart;
+            OnStateChanged?.Invoke(this, EventArgs.Empty);  
+        }
+    }
+
+    private void GameInput_OnGamePaused(object sender, EventArgs e)
     {
         TogglePauseGame();
     }
@@ -48,12 +58,7 @@ public class GameManager : MonoBehaviour
         switch (state)
         {
             case State.WaitingToStart:
-                waitingToStartTimer -= Time.deltaTime;
-                if (waitingToStartTimer < 0f)
-                {
-                    state = State.CountdownToStart;
-                    OnStateChanged?.Invoke(this, EventArgs.Empty);
-                }
+               
                 break;
 
             case State.CountdownToStart:
