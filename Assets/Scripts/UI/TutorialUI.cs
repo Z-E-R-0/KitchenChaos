@@ -11,7 +11,6 @@ public class TutorialUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI KeyInteract;
     [SerializeField] private TextMeshProUGUI KeyInteractAlternate;
     [SerializeField] private TextMeshProUGUI KeyPause;
-    [SerializeField] private TextMeshProUGUI KeyGamePadMove;
     [SerializeField] private TextMeshProUGUI KeyGamepadInteract;
     [SerializeField] private TextMeshProUGUI KeyGamepadInteractAlternate;
     [SerializeField] private TextMeshProUGUI KeyGamepadPause;
@@ -19,12 +18,12 @@ public class TutorialUI : MonoBehaviour
     private void Start()
     {
         GameInputs.Instance.OnBindingRebind += GameInput_OnBindingRebind;
-        GameInputs.Instance.OnInteractAction += GameInput_OnInteractAction;
+        GameManager.Instance.OnStateChanged += GameManager_OnInteractAction;
         UpdateVisuals();
         Show();
     }
 
-    private void GameInput_OnInteractAction(object sender, System.EventArgs e)
+    private void GameManager_OnInteractAction(object sender, System.EventArgs e)
     {
        if(GameManager.Instance.IsCountDownToStartActive())
         {
