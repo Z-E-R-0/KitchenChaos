@@ -31,7 +31,7 @@ public class DeliveryManager : MonoBehaviour
             if (waitingRecipeSOList.Count < watingRecipeMax)
             {
                 RecipeSO waitingRecipeSO = recipeListSO.recipesSOList[UnityEngine.Random.Range(0, recipeListSO.recipesSOList.Count)];
-                Debug.Log(waitingRecipeSO.recipeName);
+               
                 waitingRecipeSOList.Add(waitingRecipeSO);
                 OnRecipeSpawned?.Invoke(this,EventArgs.Empty);
             }
