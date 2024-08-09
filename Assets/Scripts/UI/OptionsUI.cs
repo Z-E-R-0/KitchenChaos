@@ -16,15 +16,21 @@ public class OptionsUI : MonoBehaviour
     [SerializeField] private Button interactButton;
     [SerializeField] private Button interactAlternateButton;
     [SerializeField] private Button pauseButton;
+    [SerializeField] private Button gamepad_InteractButton;
+    [SerializeField] private Button gamepad_InteractAlternateButton;
+    [SerializeField] private Button gamepad_PauseButton;
     [SerializeField] TextMeshProUGUI soundEffectsText;
     [SerializeField] TextMeshProUGUI musicText;
     [SerializeField] TextMeshProUGUI moveUPText;
     [SerializeField] TextMeshProUGUI moveDownText;
     [SerializeField] TextMeshProUGUI moveLeftText;
     [SerializeField] TextMeshProUGUI moveRightText;
-    [SerializeField] TextMeshProUGUI InteractText;
-    [SerializeField] TextMeshProUGUI InteractAlternateText;
-    [SerializeField] TextMeshProUGUI PauseText;
+    [SerializeField] TextMeshProUGUI interactText;
+    [SerializeField] TextMeshProUGUI interactAlternateText;
+    [SerializeField] TextMeshProUGUI pauseText;
+    [SerializeField] TextMeshProUGUI gamepad_InteractText;
+    [SerializeField] TextMeshProUGUI gamepad_InteractAlternateText;
+    [SerializeField] TextMeshProUGUI gamepad_PauseText;
     [SerializeField] private Transform pressToRebindKeyUI;
 
 
@@ -85,6 +91,21 @@ public class OptionsUI : MonoBehaviour
             RebindBinding(GameInputs.Binding.Pause);
 
         });
+        gamepad_InteractButton.onClick.AddListener(() =>
+        {
+            RebindBinding(GameInputs.Binding.GamepadInteract);
+
+        });
+        gamepad_InteractAlternateButton.onClick.AddListener(() =>
+        {
+            RebindBinding(GameInputs.Binding.Gamepad_InteractAlernate);
+
+        });
+        gamepad_PauseButton.onClick.AddListener(() =>
+        {
+            RebindBinding(GameInputs.Binding.Gamepad_Pause);
+
+        });
     }
     private void Start()
     {
@@ -107,9 +128,12 @@ public class OptionsUI : MonoBehaviour
         moveDownText.text = GameInputs.Instance.GetBindingText(GameInputs.Binding.Move_Down);
         moveLeftText.text = GameInputs.Instance.GetBindingText(GameInputs.Binding.Move_Left);
         moveRightText.text = GameInputs.Instance.GetBindingText(GameInputs.Binding.Move_Right);
-        InteractText.text = GameInputs.Instance.GetBindingText(GameInputs.Binding.Interact);
-        InteractAlternateText.text = GameInputs.Instance.GetBindingText(GameInputs.Binding.InteractAlternate);
-        PauseText.text = GameInputs.Instance.GetBindingText(GameInputs.Binding.Pause);
+        interactText.text = GameInputs.Instance.GetBindingText(GameInputs.Binding.Interact);
+        interactAlternateText.text = GameInputs.Instance.GetBindingText(GameInputs.Binding.InteractAlternate);
+        pauseText.text = GameInputs.Instance.GetBindingText(GameInputs.Binding.Pause);
+        gamepad_InteractText.text = GameInputs.Instance.GetBindingText(GameInputs.Binding.GamepadInteract);
+        gamepad_InteractAlternateText.text = GameInputs.Instance.GetBindingText(GameInputs.Binding.Gamepad_InteractAlernate);
+        gamepad_PauseText.text = GameInputs.Instance.GetBindingText(GameInputs.Binding.Gamepad_Pause);
     }
 
     public  void Show()
