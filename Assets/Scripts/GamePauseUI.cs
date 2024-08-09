@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,8 +29,9 @@ public class GamePauseUI : MonoBehaviour
         
         optionsButton.onClick.AddListener(() =>
         {
-            OptionsUI.Instance.Show();
-
+            Hide();
+            OptionsUI.Instance.Show(Show);
+           
         });
 
 
@@ -54,7 +56,9 @@ public class GamePauseUI : MonoBehaviour
     // Start is called before the first frame update
     void Show()
     {
+
         gameObject.SetActive(true);
+        resumeButton.Select();
     }
 
     // Update is called once per frame
