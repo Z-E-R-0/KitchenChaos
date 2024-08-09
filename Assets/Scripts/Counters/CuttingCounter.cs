@@ -10,7 +10,13 @@ public class CuttingCounter : BaseCounter, IHasProgress
     public event EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
     public event EventHandler OnCut;
     public static event EventHandler OnAnyCut;
-    // Start is called before the first frame update
+    new public static  void ResetStaticData()
+    {
+        OnAnyCut = null;
+
+
+    }
+    
     public override void Interact(Player player)
     {
         if (!HasKitchenObjects())

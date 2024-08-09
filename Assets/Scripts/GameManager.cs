@@ -6,7 +6,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public event EventHandler OnStateChanged;
+    public event EventHandler OnGamePause;
+    public event EventHandler OnGameUnpause;
     public static GameManager Instance { get; private set; }
+
     private enum State
     {
         WaitingToStart,
@@ -22,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float countdownToStartTimer = 3f;
      private float gamePlayingTimer;
     [SerializeField] private float gamePlayingTimerMax = 10f;
+    private bool isGamePaused = false;
     private void Awake()
     {
         Instance = this;
@@ -30,7 +34,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameInputs.Instance.OnGamePaused += GameManager_OnGamePaused;
+    }
 
+    private void GameManager_OnGamePaused(object sender, EventArgs e)
+    {
+        TogglePauseGame();
     }
 
     // Update is called once per frame
@@ -100,6 +109,23 @@ public class GameManager : MonoBehaviour
     public bool IsGameOver()
     {
         return state == State.GameOver;
+
+    }
+    public  void TogglePauseGame()
+    {
+        isGamePaused = !isGamePaused;
+        if(isGamePaused)
+        {
+            OnGamePause?.Invoke(this, EventArgs.Empty);
+            Time.timeScale = 0f;
+
+        }
+        else
+        {
+            OnGameUnpause?.Invoke(this, EventArgs.Empty);
+            Time.timeScale = 1f;
+        }
+        
 
     }
 
