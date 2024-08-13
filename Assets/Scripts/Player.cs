@@ -8,6 +8,9 @@ public class Player : MonoBehaviour, IkitchenObjectParent
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInputs gameInputs;
     [SerializeField] private float interactDistance = 2f;
+    [SerializeField] private float dashSpeed = 15f;      // Speed during the dash
+    [SerializeField] private float dashDuration = 0.2f;  // Duration of the dash
+    [SerializeField] private float dashCooldown = 1f;
     private bool isWalking;
     [SerializeField] private LayerMask CounterlayerMask;
     private Vector3 lastInteractedDirection; // Fixed spelling of 'lastInteractedDirection'
@@ -16,6 +19,11 @@ public class Player : MonoBehaviour, IkitchenObjectParent
     public event EventHandler OnPickedSometing;
     private KitchenObjects kitchenObjects;
     [SerializeField] private Transform kitchenObjectHoldPoint;
+    private bool isDashing;
+    private float dashTimerCounter;
+    private float dashCooldownTimer;
+    private Vector3 dashDir;
+    private bool canMove;
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
         public BaseCounter selectedCounter;
@@ -35,18 +43,27 @@ public class Player : MonoBehaviour, IkitchenObjectParent
     {
         gameInputs.OnInteractAction += GameInput_OnInteractAction;
         gameInputs.OnInteractAlternate += GameInput_OnInteractAlternateAction;
+        gameInputs.OnDash += GameInputs_OnDash;
+    }
+
+    private void GameInputs_OnDash(object sender, EventArgs e)
+    {
+        if (dashCooldownTimer <= 0 && !isDashing)
+        {
+            StartDash();
+        }
     }
 
     private void GameInput_OnInteractAction(object sender, EventArgs e)
     {
         if (!GameManager.Instance.IsGamePlaying()) return;
-       
-            if (selectedCounter != null)
-            {
-                selectedCounter.Interact(this); // Fixed spelling of 'Interact'
-            }
 
-       
+        if (selectedCounter != null)
+        {
+            selectedCounter.Interact(this); // Fixed spelling of 'Interact'
+        }
+
+
 
     }
     private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
@@ -58,10 +75,24 @@ public class Player : MonoBehaviour, IkitchenObjectParent
         }
     }
 
+
+
     private void Update()
     {
-        HandleMovement(); // Fixed spelling of 'HandleMovement'
-        HandleInteraction(); // Fixed spelling of 'HandleInteraction'
+        HandleMovement();
+        HandleInteraction();
+
+        if (isDashing)
+        {
+            DashMovement();
+        }
+        else
+        {
+            if (dashCooldownTimer > 0)
+            {
+                dashCooldownTimer -= Time.deltaTime;
+            }
+        }
     }
 
     public bool IsWalking()
@@ -77,7 +108,7 @@ public class Player : MonoBehaviour, IkitchenObjectParent
         float distance = moveSpeed * Time.deltaTime;
         float playerRadius = .7f;
         float playerHeight = 2f;
-        bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, distance);
+         canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, distance);
 
         if (!canMove)
         {
@@ -189,4 +220,42 @@ public class Player : MonoBehaviour, IkitchenObjectParent
         return kitchenObjects != null;
 
     }
+
+    private void StartDash()
+    {
+        isDashing = true;
+        dashTimerCounter = dashDuration;
+        dashCooldownTimer = dashCooldown;
+        dashDir = transform.forward; // Dashes in the current forward direction
+    }
+
+    private void DashMovement()
+    {
+        if (dashTimerCounter > 0)
+        {
+            float dashDistance = dashSpeed * Time.deltaTime;
+            float playerRadius = .7f;
+            float playerHeight = 2f;
+
+            // Perform a capsule cast to check for collisions during the dash
+            bool canDashMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, dashDir, dashDistance);
+
+            if (canDashMove)
+            {
+                transform.position += dashDir * dashSpeed * Time.deltaTime;
+            }
+            else
+            {
+                // Stop the dash if a collision is detected
+                isDashing = false;
+            }
+
+            dashTimerCounter -= Time.deltaTime;
+        }
+        else
+        {
+            isDashing = false;
+        }
+    }
+
 }

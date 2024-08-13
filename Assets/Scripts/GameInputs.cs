@@ -13,6 +13,7 @@ public class GameInputs : MonoBehaviour
     public event EventHandler OnInteractAlternate;
     public event EventHandler OnGamePaused;
     public event EventHandler OnBindingRebind;
+    public event EventHandler OnDash;
     public static GameInputs Instance { get; private set; }
 
     public enum Binding
@@ -21,12 +22,14 @@ public class GameInputs : MonoBehaviour
         Move_Down,
         Move_Left,
         Move_Right,
+        Dash,
         Interact,
         InteractAlternate,
         Pause,
         GamepadInteract,
         Gamepad_InteractAlernate,
         Gamepad_Pause
+
 
     }
     private PlayerInputActions playerInputActions;
@@ -43,7 +46,15 @@ public class GameInputs : MonoBehaviour
         playerInputActions.Player.Interact.performed += Interact_performed;
         playerInputActions.Player.InteractAlternate.performed += InteractAlternate_performed;
         playerInputActions.Player.Pause.performed += Pause_performed;
+        playerInputActions.Player.Dash.performed += Dash_performed;
     }
+
+    private void Dash_performed(InputAction.CallbackContext obj)
+    {
+        OnDash?.Invoke(this, EventArgs.Empty);
+        Debug.Log("Dash");
+    }
+
     private void OnDestroy()
     {
         playerInputActions.Player.Interact.performed -= Interact_performed;
